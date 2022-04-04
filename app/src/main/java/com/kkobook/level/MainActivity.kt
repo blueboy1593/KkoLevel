@@ -24,9 +24,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 화면이 꺼지지 않게 하기
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-//        tiltView = findViewById(R.id.tiltView)
         tiltView = TiltView(this)
         binding.tiltView.addView(tiltView)
     }
@@ -49,8 +47,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         event?.let {
             Log.d("MainActivity", "onChanged: x: ${event.values[0]}, y: ${event.values[1]}, z: ${event.values[2]}")
             tiltView.onSensorEvent(event)
-            binding.xText.text = "X: " + event.values[0] * 20 + "º"
-            binding.yText.text = "Y: " + event.values[0] * 20 + "º"
+            binding.xText.text = "X: " + String.format("%.2f", (event.values[0] * 20)) + "º"
+            binding.yText.text = "Y: " + String.format("%.2f", (event.values[1] * 20)) + "º"
         }
     }
 
